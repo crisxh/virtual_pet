@@ -1,3 +1,5 @@
+let body=$('body');
+
 function Pet(name,shape,color){
     this.shape=shape;
     this.name=name;
@@ -6,7 +8,7 @@ function Pet(name,shape,color){
 
 Pet.prototype={
     hunger:100,
-    happy:100,
+    happy:80,
     clean:100,
     eat:function(){console.log(this.name+' says: '+ 'yummy!')},
     pat:function(){
@@ -16,9 +18,18 @@ Pet.prototype={
 
 }
 
+view = {
+    updateStatus:function(msg){
+        statusBox.html(msg);
+         
+        
+    }
+}
+
 binny=new Pet('binny','circle');
 alki=new Pet('alki','square');
 lala=new Pet('lala','circle','pink');
+oinky=new Pet('oinky','square','orange');
 
 
 // console.log(binny,alki);
@@ -40,23 +51,25 @@ function createPet(pet){
     
     petMouth=$('<div>').addClass('mouth');
     petEye=$('<div>').addClass('eye');
+    petEye2=$('<div>').addClass('eye');
     
-    petBody.append([petMouth,petEye,petEye]);
+    petBody.append([petEye,petMouth,petEye2]);
+    
     
 
     
     console.log(pet)
 }
 
-lala.pat();
-lala.pat();
-lala.pat();
-lala.pat();
+$('#oinky').click(()=>{
+    oinky.pat();
+})
 
 
 createPet(binny);
 createPet(alki);
 createPet(lala);
+createPet(oinky);
 
 // function patPet(pet){
 //     $('.pet').click(function(){console.log(pet.pat())})
@@ -64,3 +77,46 @@ createPet(lala);
 // }
 
 
+$('eye').animate({
+
+});
+
+
+$('.pet').click(function(){
+    petTemp=eval(this.id);
+        console.log(petTemp);
+        console.log(petTemp.name)
+    })
+
+    fruitBox=$('<div>',{id:'fruitBox'}).appendTo($('body'));
+
+    for(let i=0;i<10;i++){
+        apple=$('<div>').html('apple').addClass('apple').appendTo($('#fruitBox'));
+
+    }
+
+
+$( function() {
+    $( ".apple" ).draggable();
+    $('.mouth').droppable({
+        drop:function(event,ui){
+            event.stopPropagation();
+            ui.draggable.css('visibility','hidden');
+            console.log('yummy!')
+            view.updateStatus('yummy!')
+        }
+    });
+    // $('.petBody').droppable({
+    //     drop:function(event,ui){
+    //         event.stopPropagation();
+    //         view.updateStatus('i want apple :(')
+    //     }
+    // })
+  } );
+
+  statusBox=$('<div>',{id:'statusBox'});
+  body.append(statusBox);
+  
+
+
+view.updateStatus('testing')
