@@ -91,19 +91,30 @@ $('.pet').click(function(){
     fruitBox=$('<div>',{id:'fruitBox'}).appendTo($('body'));
 
     for(let i=0;i<10;i++){
-        apple=$('<div>').html('apple').addClass('apple').appendTo($('#fruitBox'));
+        apple=$('<div>').html('apple').addClass('fruit apple').appendTo($('#fruitBox'));
+        orange=$('<div>').html('orange').addClass('fruit orange').appendTo($('#fruitBox'));
 
     }
 
 
 $( function() {
-    $( ".apple" ).draggable();
+    $( ".fruit" ).draggable();
     $('.mouth').droppable({
         drop:function(event,ui){
+            var mouth=event.target;
             event.stopPropagation();
             ui.draggable.css('visibility','hidden');
             console.log('yummy!')
             view.updateStatus('yummy!')
+            console.log(event.target),
+            $(mouth).addClass('eating');
+            setTimeout(function(){
+                $(mouth).removeClass('eating');
+                console.log(this);
+
+            },500)
+       
+            
         }
     });
     // $('.petBody').droppable({
