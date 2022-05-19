@@ -1,0 +1,12 @@
+features:
+    - dynamically updated statBoxes for pets
+    - save and load pets from local storage
+    -set delay on creation of pet so animations are out of sync
+bugs:
+    -fruitBox styling 
+    -dynamically created pets have no interactvity
+
+refactoring:
+    - figure out better way to connect pet objects to dom elements 
+        - perhaps by using mvc objects? 
+    - better way to organize code 

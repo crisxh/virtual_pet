@@ -39,7 +39,8 @@
 }
 
 body{
-    display:flex;
+    display:grid;
+    grid-template-columns:4fr 1fr;
 
 }
 
@@ -70,7 +71,8 @@ body{
 #petContainer{
     display:flex;
     flex-direction: row;
-    background-color: lightgreen;
+    flex-wrap:wrap;
+    background-color: rgb(159, 235, 213);
     outline:solid red;
 }
 
@@ -88,6 +90,9 @@ body{
     animation:eating 200ms linear;
     animation-iteration-count:3.5;
 }
+.eyesClosed{
+    height: 0%;
+}
 
 
 .eye{
@@ -96,7 +101,7 @@ body{
     background-color:black;
     border:solid black;
     border-radius: 50%;
-    animation:blinking 8s linear infinite;
+    animation:blinking 6s linear infinite;
     
     
 
@@ -116,7 +121,7 @@ body{
     box-shadow:2px 2px 5px black;
     border-radius:10%;
     padding:1%;
-    background-color: rgba(127, 255, 212, 0.551);
+    background-color: rgba(221, 241, 104, 0.551);
 }
 
 
@@ -158,3 +163,9 @@ body{
 
 }
 
+/* @media screen and (max-width:650){
+#petContainer{
+    flex-direction:column;
+
+}
+} */
