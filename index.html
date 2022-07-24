@@ -12,17 +12,30 @@
     <div id="selectPet">
         Select Pet
         <select>
-            <option>lila</option>
+
         </select>
         <button id="getPet">Get Pet</button>
+        <button id="putAwayPet">Put Away</button>
+        <button id="createPet">Create Pet</button>
     </div>
     <div id="petContainer"></div>
+    <div id="statusBox"></div>
     <div id="fruitBox"></div>
-    <button id="createPetBtn">Create Pet</button>
+    
+    
 
     <div id="createPetWindow">
+        <div id="close">CLOSE</div>
         <form>
-            <input type="text">
+            <label for="name">Name: </label>
+            <input name="name" type="text" id="name">
+            <label for="color">Color: </label>
+            <input type="color" name="color" id="color">
+            <label for="square">Square</label>
+            <input type="radio" name="shape" value="square" id="square">
+            <label for="circle">Circle</label>
+            <input type="radio" name="shape" value="circle" id="shape">
+            <button id="createPetBtn">Create Pet</button>
 
         </form>
     </div>

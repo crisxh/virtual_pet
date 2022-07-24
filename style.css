@@ -1,6 +1,7 @@
 #petContainer{
+    display:flex;
     height: 200px;
-    width: 200px;
+    width: 100%;
     background-color: blue;
 }
 
@@ -12,4 +13,33 @@
 
 #createPetWindow{
     display:none;
+    position:absolute;
+    top:0;
+    left:0;
+    height: 100vh;
+    width: 100vw;
+    background-color: yellow;
+}
+
+.pet{
+    height: 100px;
+    width: 100px;
+    margin:20px;
+}
+
+.circle{
+    border-radius:50%;
+}
+
+.square{
+
+}
+
+#statusBox{
+    width: 300px;
+    height: 100px;
+    background-color: lightgray;
+    color:white;
+    font-size:xx-large;
+    
 }
