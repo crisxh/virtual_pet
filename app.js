@@ -1,23 +1,19 @@
 $(function(){
-    petTemp=JSON.parse(localStorage.getItem('pets'));
-    if(petTemp !=null){
-        pets=petTemp;
-    }
-    console.log(pets);
-    let petsKeys=Object.keys(pets);
-    let select=$('#selectPet select');
-    for (let i=0;i<petsKeys.length;i++){
-       console.log(petsKeys[i]);
-        let option=$(`<option></option`).html(petsKeys[i]);
-        select.append(option);
-    }
+   controller.getPets();
   
 })
 
 
-
+let model={
+    pets:{},
+    activePets:{},
+    currentActivity:'',
+    activities:[
+        {name:'fruits',active:false},{name:'toys',active:false},{name:'other',active:false}
+    ]
+}
 let view={
-    updateStatus:function(msg){
+    updateStatus(msg){
         $('#statusBox').html(msg);
         setTimeout(this.statusClear,1500);
         },
@@ -28,14 +24,13 @@ let view={
        petDiv.css('background-color',pet.color).html(pet.name).addClass(pet.shape);
        
        if(!$.contains(document.getElementById('petContainer'), document.getElementById(pet.name))){
+        view.updateStatus(`${pet.name} says: "Hi!"`);
         $('#petContainer').append(petDiv);
-        view.updateStatus(`${pet.name} says: "Hi!"`)
-       }
-       
-     
-    
-      
 
+        model.activePets[pet.name]=pet;
+        localStorage.setItem('activePets', JSON.stringify(model.activePets));
+        console.log(localStorage.activePets);
+       }
     },
     statusClear(){
        $('#statusBox').html('');
@@ -43,25 +38,60 @@ let view={
     putAwayPet(){
         let pet=$('#selectPet select').val();
         if($.contains(document.getElementById('petContainer'), document.getElementById(pet))){
+            view.updateStatus(`${pet} says: "bye bye"`);
             $(`#${pet}`).remove();
-            view.updateStatus(`${pet} says: "bye bye"`)
+            console.log(model.activePets);
+            delete model.activePets[pet];
+            localStorage.setItem('activePets',JSON.stringify(model.activePets));
+            console.log(model.activePets);
+            console.log(localStorage.activePets);
+            
         
            }
            
 
+    },
+    toggleActivityBox:function(e){
+      
+      
+
+        
+        
+    
+        }
     }
 
+
+let controller={
+    getPets(){
+        petTemp=JSON.parse(localStorage.getItem('pets'));
+        if(petTemp !=null){
+            model.pets=petTemp;
+        }
+        console.log(model.pets);
+        let petsKeys=Object.keys(model.pets);
+        let select=$('#selectPet select');
+        for (let i=0;i<petsKeys.length;i++){
+           console.log(petsKeys[i]);
+            let option=$(`<option></option`).html(petsKeys[i]);
+            select.append(option);
+        }
+
+    }
+    
 }
 
 function Pet(name,color,shape){
     this.shape=shape;
     this.name=name;
     this.color=color;
+    this.happy='50';
+    this.maxHappy='100';
 };
 
 
 
-let pets={};
+
 
 function createPet(){
     let petName=$('#name').val();
@@ -69,8 +99,8 @@ function createPet(){
     let petShape=$("input[name='shape']:checked").val();
     let pet=new Pet(petName,petColor,petShape);
    if (pet.name !=null && pet.shape !=null && pet.color !=null && pet.name !="" )
-    pets[pet.name]=pet;
-    localStorage.setItem('pets',JSON.stringify(pets));
+    model.pets[pet.name]=pet;
+    localStorage.setItem('pets',JSON.stringify(model.pets));
 }
 
 function toggleCreatePet(){
@@ -82,13 +112,13 @@ function toggleCreatePet(){
 function getPet(){
     let pet=$('#selectPet select').val();
     console.log(pet);
-view.appendPet(pets[pet]);
+view.appendPet(model.pets[pet]);
 
 }
 
-$('#createPetBtn').click(()=>{
+$('#createPetBtn').click((e)=>{
+  
     createPet();
-    console.log(localStorage);
 })
 
 $('#getPet').click(()=>{
@@ -101,10 +131,16 @@ $('#close').click(()=>{
 
 $('#putAwayPet').click(()=>{
     view.putAwayPet();
-    console.log('put')
     
 })
 
-$('#createPet').click(()=>{
+$('#createPet').click((e)=>{
+   
     $('#createPetWindow').fadeIn();
 })
+
+$('.activityBtn').click((e)=>{
+
+
+view.toggleActivityBox(e);
+});

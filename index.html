@@ -9,18 +9,35 @@
     <title>Virtual Pet</title>
 </head>
 <body>
-    <div id="selectPet">
-        Select Pet
-        <select>
-
-        </select>
-        <button id="getPet">Get Pet</button>
-        <button id="putAwayPet">Put Away</button>
-        <button id="createPet">Create Pet</button>
+    <div class="petContainerWrap">
+        <div id="selectPet">
+            Select Pet
+            <select>
+            </select>
+            <button id="getPet">Get Pet</button>
+            <button id="putAwayPet">Put Away</button>
+            <button id="createPet">Create Pet</button>
+        </div>
+        <div id="petContainer"></div>
     </div>
-    <div id="petContainer"></div>
+    
+    <div id="activityBoxWrap">
+        <div id="activityBtns">
+            <button class="activityBtn" value="fruits">Fruits</button>
+            <button class="activityBtn" value="toys">Toys</button>
+            <button class="activityBtn" value="other">Other</button>
+        </div>
+        <div id="activityBox">
+           
+            <div id="fruitBox" class="activity">fruits</div>
+            <div id="toyBox" class="activity">toys</div>
+            <div id="otherBox" class="activity">other</div>
+        </div>
+    </div>
+   
+
     <div id="statusBox"></div>
-    <div id="fruitBox"></div>
+
     
     
 
