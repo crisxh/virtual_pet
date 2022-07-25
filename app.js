@@ -1,5 +1,6 @@
 $(function(){
    controller.getPets();
+   view.appendActivePets();
   
 })
 
@@ -31,6 +32,20 @@ let view={
         localStorage.setItem('activePets', JSON.stringify(model.activePets));
         console.log(localStorage.activePets);
        }
+    },
+    appendActivePets(){
+        let active=localStorage.getItem('activePets');
+        activeObj=JSON.parse(active);
+        console.log(activeObj);
+        for (let i of Object.keys(activeObj)){
+            pet=activeObj[i];
+            console.log(pet);
+            view.appendPet(pet);
+            view.updateStatus('Welcome Back!');
+
+            
+        }
+
     },
     statusClear(){
        $('#statusBox').html('');
@@ -68,11 +83,11 @@ let controller={
         if(petTemp !=null){
             model.pets=petTemp;
         }
-        console.log(model.pets);
+        
         let petsKeys=Object.keys(model.pets);
         let select=$('#selectPet select');
         for (let i=0;i<petsKeys.length;i++){
-           console.log(petsKeys[i]);
+           
             let option=$(`<option></option`).html(petsKeys[i]);
             select.append(option);
         }
