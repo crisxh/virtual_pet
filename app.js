@@ -11,7 +11,8 @@ let model={
     currentActivity:'',
     activities:[
         {name:'fruits',active:false},{name:'toys',active:false},{name:'other',active:false}
-    ]
+    ],
+
 }
 let view={
     updateStatus(msg){
@@ -37,14 +38,18 @@ let view={
         let active=localStorage.getItem('activePets');
         activeObj=JSON.parse(active);
         console.log(activeObj);
-        for (let i of Object.keys(activeObj)){
-            pet=activeObj[i];
-            console.log(pet);
-            view.appendPet(pet);
-            view.updateStatus('Welcome Back!');
+        if(activeObj){
+            for (let i of Object.keys(activeObj)){
+                pet=activeObj[i];
+                console.log(pet);
+                view.appendPet(pet);
+                view.updateStatus('Welcome Back!');
+    
+                
+            }
 
-            
         }
+       
 
     },
     statusClear(){
@@ -102,7 +107,28 @@ function Pet(name,color,shape){
     this.color=color;
     this.happy='50';
     this.maxHappy='100';
+    this.func=function(){
+        console.log('function test');
+    }
+    this.test4='test';
+  
 };
+
+Pet.prototype={
+    test2:'test2',
+    test3:function(){
+        return 'test3';
+    },
+    pat:function(){
+        console.log('pet :)');
+    },
+    test:'test',
+
+}
+
+
+
+
 
 
 
@@ -112,10 +138,18 @@ function createPet(){
     let petName=$('#name').val();
     let petColor=$('#color').val();
     let petShape=$("input[name='shape']:checked").val();
+
+   
+
+   if (petName !=null && petShape !=null && petColor !=null && petName !="" ){
     let pet=new Pet(petName,petColor,petShape);
-   if (pet.name !=null && pet.shape !=null && pet.color !=null && pet.name !="" )
+    console.log(pet);
     model.pets[pet.name]=pet;
     localStorage.setItem('pets',JSON.stringify(model.pets));
+   }
+    view.updateStatus('pet cannot be null');
+   
+  
 }
 
 function toggleCreatePet(){
@@ -132,6 +166,8 @@ view.appendPet(model.pets[pet]);
 }
 
 $('#createPetBtn').click((e)=>{
+    e.preventDefault();
+   
   
     createPet();
 })
@@ -159,3 +195,11 @@ $('.activityBtn').click((e)=>{
 
 view.toggleActivityBox(e);
 });
+
+$(document).on('click','.pet',(e)=>{
+   let pet=model.pets[e.target.id];
+    console.log(pet);
+})
+
+let bob= new Pet('bob','blue','circle');
+console.log(bob);
